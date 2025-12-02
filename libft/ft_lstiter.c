@@ -1,0 +1,19 @@
+/*
+** 算法说明 (Algorithm Explanation):
+** 遍历链表并对每个节点的内容应用函数 f。
+** 从头节点开始，依次对每个节点的 content 调用 f，不修改链表结构。
+** 时间复杂度: O(n)
+*/
+
+#include "libft.h"
+
+void	ft_lstiter(t_list *lst, void (*f)(void *))
+{
+	if (!lst || !f)
+		return ;
+	while (lst)
+	{
+		f(lst->content);
+		lst = lst->next;
+	}
+}
