@@ -11,10 +11,14 @@ INCLUDES		= includes/
 LIBFT_DIR		= libft/
 
 # --- Source and Object Files ---
-SRCS			= algo_logic.c algo_utils.c check_input.c main.c \
-			  rev_rotate.c sort_tiny.c stack_utils_a.c stack_utils_c.c \
-			  algo_logic_a.c algo_utils_opt.c error_handler.c push.c \
-			  rotate.c sort_turk.c stack_utils_b.c swap.c
+SRCS			= append_node.c current_index.c free_stack.c move_a_to_b.c \
+			  reverse_rotate.c set_cheapest.c stack_init.c check_duplicates.c \
+			  find_last.c ft_atol.c move_b_to_a.c rotate.c set_target_a.c \
+			  stack_len.c check_input.c find_max.c ft_stack_new.c normalize_stack.c \
+			  rotate_a_to_target.c sort_small.c stack_sorted.c check_overflow.c \
+			  find_min.c main.c push.c rotate_b_to_top.c sort_stacks.c swap.c \
+			  cost_analysis_a.c free_errors.c min_on_top.c rev_rotate_both.c \
+			  rotate_both.c sort_three.c
 
 OBJS			= $(addprefix $(OBJS_DIR), $(SRCS:.c=.o))
 

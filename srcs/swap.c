@@ -1,54 +1,47 @@
 #include "push_swap.h"
 
-/* 交换栈顶的两个节点。
- * 1. 检查是否有足够的节点 (至少 2 个)。
- * 2. 定义 first 和 second 节点。
- * 3. 调整指针: first->next 指向 second->next; second->prev 指向 NULL。
- * 4. 修复链条断口: if (first->next) first->next->prev = first。
- * 5. 互连: second->next = first; first->prev = second。
- * 6. 更新头指针: *head = second。
- */
-static void	swap(t_stack_node **head)
+void	swap(t_stack **head)
 {
-	t_stack_node	*first;
-	t_stack_node	*second;
+	t_stack		*first;
+	t_stack		*second;
+	t_stack		*last;
 
-	if (!*head || !(*head)->next)
+	if (!head || !*head || stack_len(*head) < 2)
 		return ;
 	first = *head;
 	second = first->next;
+	last = first->prev;
+	/* 1. Reenlazar el último nodo al segundo */
+	last->next = second;
+	second->prev = last;
+	/* 2. Reenlazar el segundo nodo al primero */
 	first->next = second->next;
-	if (second->next)
-		second->next->prev = first;
-	second->prev = NULL;
-	second->next = first;
 	first->prev = second;
+	/* 3. Reenlazar el resto al primero */
+	first->next->prev = first;
+	/* 4. Hacer que el segundo sea el nuevo head */
+	second->next = first;
 	*head = second;
 }
 
-/* SA: Swap A (交换 A 栈顶两元素)。*/
-void	sa(t_stack_node **a, bool print)
+void	sa(t_stack **a, bool print)
 {
 	swap(a);
 	if (print)
-		write(1, "sa\n", 3);
+		write(STDOUT_FILENO, "sa\n", 3);
 }
 
-/* SB: Swap B (交换 B 栈顶两元素)。*/
-void	sb(t_stack_node **b, bool print)
+void	sb(t_stack **b, bool print)
 {
 	swap(b);
 	if (print)
-		write(1, "sb\n", 3);
+		write(STDOUT_FILENO, "sb\n", 3);
 }
 
-/* SS: Swap Both (同时交换 A 和 B)。
- * 这是一个组合指令，通常用于优化。
- */
-void	ss(t_stack_node **a, t_stack_node **b, bool print)
+void	ss(t_stack **a, t_stack **b, bool print)
 {
 	swap(a);
 	swap(b);
 	if (print)
-		write(1, "ss\n", 3);
+		write(STDOUT_FILENO, "ss\n", 3);
 }
