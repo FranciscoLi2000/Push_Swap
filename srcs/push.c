@@ -1,5 +1,5 @@
 #include "push_swap.h"
-
+/*
 static void	push_to_empty(t_stack **dst, t_stack *node)
 {
 	*dst = node;
@@ -40,6 +40,53 @@ void	push(t_stack **dst, t_stack **src)
 		push_to_empty(dst, node_to_push);
 	else
 		push_to_non_empty(dst, node_to_push);
+}
+*/
+
+static void	push_to_stack(t_stack **dst, t_stack *node)
+{
+	if (!*dst)
+	{
+		*dst = node;
+		node->next = node;
+		node->prev = node;
+	}
+	else
+	{
+		node->prev = (*dst)->prev;
+		node->next = *dst;
+		(*dst)->prev->next = node;
+		(*dst)->prev = node;
+		*dst = node;
+	}
+}
+
+static t_stack	*pop_from_stack(t_stack **src)
+{
+	t_stack		*node;
+
+	node = *src;
+	if (node->next == node)
+		*src = NULL;
+	else
+	{
+		*src = node->next;
+		(*src)->prev = node->prev;
+		node->prev->next = *src;
+	}
+	node->next = NULL;
+	node->prev = NULL;
+	return (node);
+}
+
+void	push(t_stack **dst, t_stack **src)
+{
+	t_stack		*node_to_push;
+
+	if (!src || !*src)
+		return ;
+	node_to_push = pop_from_stack(src);
+	push_to_stack(dst, node_to_push);
 }
 
 void	pa(t_stack **a, t_stack **b, bool print)

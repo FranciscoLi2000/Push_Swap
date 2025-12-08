@@ -10,8 +10,8 @@ t_stack		*find_max(t_stack *stack)
 		return (NULL);
 	max_val = stack->value;
 	max_node = stack;
-	current = stack;
-	while (1)
+	current = stack->next;
+	while (current != stack)
 	{
 		if (current->value > max_val)
 		{
@@ -19,8 +19,6 @@ t_stack		*find_max(t_stack *stack)
 			max_node = current;
 		}
 		current = current->next;
-		if (current == stack)
-			break ;
 	}
 	return (max_node);
 }

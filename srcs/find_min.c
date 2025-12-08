@@ -8,10 +8,10 @@ t_stack		*find_min(t_stack *stack)
 
 	if (!stack)
 		return (NULL);
-	min_val = 2147483648;
-	min_node = NULL;
-	current = stack;
-	while (current)
+	min_val = stack->value;
+	min_node = stack;
+	current = stack->next;
+	while (current != stack)
 	{
 		if (current->value < min_val)
 		{
@@ -19,8 +19,6 @@ t_stack		*find_min(t_stack *stack)
 			min_node = current;
 		}
 		current = current->next;
-		if (current == stack)
-			break ;
 	}
 	return (min_node);
 }
